@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 
 \usepackage[]{amsmath} 
 \usepackage[]{amssymb} 
@@ -9,6 +9,7 @@
 \usepackage[]{minted} 
 
 \usepackage[]{graphicx} 
+\graphicspath{{./pictures/}}
 
 \usepackage[]{hyperref} 
 \usepackage[]{cleveref} 
@@ -20,6 +21,14 @@
 
 \begin{document}
     \maketitle
+
+    \begin{abstract}
+       In this assignment we discuss two methods for curve generation,
+       Neville-Aitken for interpolating curves, and de Casteljau for B\'ezier
+       curves. We also prove that B-splines has compact support, given
+       explicitly by the degree of the B-spline. Finally we use the recursive
+       definition of B-splines of degree $p$ to evaluate a specific B-spline.
+    \end{abstract} 
 
     \section*{Exercise 1.3}
     \label{sec:exercise_1_3}
@@ -53,7 +62,7 @@
     uniform parametrization behaved quite nicely under increasing $N$, as can
     be seen in \Cref{fig:uniform}.  The random parametrization on the other
     hand was very unstable under increasing $N$ and hence yields a very bad
-    interpolation to the semi circle for large $N$.
+    interpolation to the semi circle for large $N$, as seen in \Cref{fig:random}.
 
     \begin{figure}[htbp]
         \centering
@@ -162,4 +171,73 @@ def deCasteljau(T, c_points, interval_start=0, interval_stop=1):
             interpolate the interior control points.}
         \label{fig:bezier}
     \end{figure}
+
+    \section*{Exercise 1.7}
+    \label{sec:exercise_1_7}
+    
+    We wish to show that the $j$th B-spline of degree $p$, $B_{j, p}$ only
+    relies on the knots $t_j, \ldots, t_{j+p+1}$. In addition we want to show
+    that $B_{j, p}$ vanishes outside these knots.  We first recall that $B_{j,
+    0}$ is defined as
+    \begin{equation}
+        \label{eq:def}
+        B_{j, 0}(t) = \begin{cases}
+            1, & t_j \leq t < t_{j+1};\\
+            0,
+        \end{cases}
+    \end{equation}
+    and that $B_{j, p}$ is defined recursively as
+    \begin{equation}
+        \label{eq:rec}
+        B_{j, p}(t) = \frac{t - t_j}{t_{j+k} - t_j}B_{j, p-1}(t) + \frac{t_{j+1+k} - t}{t_{j+k+1} - t_{j+1}} B_{j+1, k-1}(t).
+    \end{equation}
+
+    We apply strong induction on $p$. The base case with $p = 0$ follows
+    immediately from the definition given in \Cref{eq:def}. Assume inductively
+    that the hypothesis holds for $p = 0, 1, \ldots, k - 1$. We wish to show
+    that it must then also hold for $p = k$. However, since the two lower
+    degree B-splines depend only on the knots $t_j, \ldots, t_{j+k-1}$ and
+    $t_{j + 1}, \ldots, t_{j+k}$, and we only introduce the new knot
+    $t_{j+k+1}$ in the recurrence relation, the claim holds. This closes the
+    induction.
+    
+    To show that $B_{j, p}$ vanishes outside of the knot interval discussed
+    above, we first discuss the case where $t < t_j$ and in this case $B_{j,0}
+    = 0$. In addition, since the knots are assumed to be increasing $t_j \leq
+    t_{j+1}$, we also have that $B_{k, 0} = 0$ for all $k > j$. Consequently,
+    all terms in the recurrence relation given in \Cref{eq:rec} are zero, hence
+    $B_{j, p} = 0$.  Assume now that $t > t_{j+p+1}$, by the same argument
+    above, $B_{k, 0}$ are zero for all $k < j + p + 1$. Hence $B_{j, p} = 0$.
+
+    This result gives us a computational advantage, as for any given parameter
+    value $t$, we only need to evaluate the B-splines that are ``active'' on
+    the respective knot intervals. This is illustrated in
+    \Cref{fig:activesplines}.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bsplines.pdf}
+        \caption{The third B-splines of degree three and one respectively. The
+        knots are uniform. Here we clearly see the support of the basis
+    splines, and how each B-spline has a set of knots where it is non-zero.}
+        \label{fig:activesplines}
+    \end{figure}
+
+    \section*{Exercise 2.1}
+    \label{sec:exercise_2_1}
+    
+    We wish to evaluate the B-spline $B[0, 3, 4, 6](x)$. We first recall that
+    for notational purposes, we often write
+    \begin{equation}
+        \notag
+        B_{j, p} = B[t_j, \ldots, t_{j+p+1}]
+    \end{equation}
+    if the knots have to be emphasized. Using \Cref{eq:rec} we compute
+    directly:
+    \begin{align*}
+        B[0, 3, 4, 6](x) &= \frac{x}{4}B[0, 3, 4](x) + \frac{6-x}{3}B[3, 4, 6](x) \\
+                         &= \frac{x}{4}\left( \frac{x}{3} B[0, 3](x) + \frac{x(4-x)}{4}B[3, 4](x) \right)
+        + \frac{(6 - x)}{3}\left((x-3)B[3, 4](x) + \frac{(6-x)}{2}B[4, 6](x) \right) \\
+                          &= \frac{1}{12}x^2B[0, 3](x) + \frac{1}{12}(-7x^2 + 48x - 72)B[3, 4](x) + \frac{1}{6}(6-x)^2B[4, 6](x).
+    \end{align*}
 \end{document}
