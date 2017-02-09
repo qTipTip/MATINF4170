@@ -16,7 +16,7 @@
 
 
 \usepackage[]{hyperref} 
-\usepackage[noabbrev]{cleveref} 
+\usepackage[capitalize, noabbrev]{cleveref} 
 
 \title{\textsc{Assignment 2 \\ MATINF4170 \\ Spline methods}}
 \author{Ivar Haugal{\o}kken Stangeby}
@@ -148,8 +148,8 @@
     as $z$ lies in the interval $[t_j, t_{j+p+1})$. If we instead consider the
     B-splines $B_{i, p}$ where $i \neq j$ evaluated at $z$, then we have two cases:
     \begin{enumerate}[i)]
-        \item No overlapping knots, in which case $B_{i, p}(z) = 0$,
-        \item $k \leq p$ overlapping knots, either at the left or right end of the active knots:
+        \item No equal knots, in which case $B_{i, p}(z) = 0$,
+        \item $k \leq p$ equal knots, either at the left or right end of the active knots:
             \begin{align*}
                 &B(z \mid t_i, \ldots, t_{i + p - k}, \underbrace{z, \ldots, z}_{k}) = B(z \mid t_i, t_{i + p - k}) = 0
                 \intertext{or}
@@ -242,4 +242,45 @@ def IndexBinaryEvaluation(x, knots, previous=0):
                 a = c + 1
     \end{minted}
     
+    \section*{Exercise 2.12}
+    
+    In this exercise we want to implement the algorithm for evaluation non-zero
+    B-splines for a given $x$. Given an $x$, we use the binary search algorithm
+    outlined above for finding the corresponding index $\mu$ such that $x \in
+    [t_\mu, t_{\mu+1})$. The code was implemented in \mathsc{Python}, and can
+    be seen in \cref{lst:bsplines}. The algorithm was used to compute and
+    visualize the four non-zero B-splines of order $3$ on the uniform knot
+    vector $t = \left\{j\right\}_{j=0}^9$.
+    \begin{listing}
+        \begin{minted}{python} 
+def BSplineEvaluation(x, p, knots):
+    """
+    Evaluate the p+1 active B-splines at the point x.
+    Given x, find the index mu such that knots[mu] <= x < knots[mu+1].
+    We only need the knots knots[mu - p + 1] to knots[mu + p].
+    """ 
+    knots = np.array(knots, dtype=np.float64)
+    mu = index(x, knots)
+    b = 1
+    for k in range(1, p+1):
+        # extract relevant knots, using array-views to save memory
+        t1 = knots[mu - k + 1 : mu+1]
+        t2 = knots[mu+1 : mu + k+1]
+        # append 0 to end of first term, and insert 0 to start of first term
+        omega = (x - t1) / (t2 - t1)
+        b = np.append((1 - omega)*b, 0)  + np.insert((omega * b), 0, 0)
+    return b
+        \end{minted}
+        \caption{Given $x$, a degree $p$, and a knot vector, returns the vector
+        $b$ consisting of the $p+1$ non-zero B-splines of order $p$ evaluated
+    at $x$. Makes use of the \texttt{numpy}-vector operations.}
+    \label{lst:bsplines}
+    \end{listing}
+    
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{active_b_splines.pdf}
+        \caption{The four active B-splines of order 3 on a uniform knot.}
+        \label{fig:active_b_splines.}
+    \end{figure}
 \end{document}
