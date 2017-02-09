@@ -87,3 +87,14 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# LaTeX
+*.aux
+*.fls
+*.out
+*.synctex.gz
+_minted-*
+*.tar
+*.fdb_latexmk
+
+.DS_Store

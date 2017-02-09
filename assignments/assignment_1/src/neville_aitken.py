@@ -26,10 +26,10 @@ def NevAit(T, c_points, t_points):
 
 def demo():
     c = [(i, np.random.randint(-10, 10)) for i in range(5)]
-    t = range(len(c))
+    t = [0.0]*(len(c))
 
     result = []
-    for T in np.linspace(t[0], t[-1], 1000):
+    for T in np.linspace(t[0], t[-1], 100):
         result.append(NevAit(T, c, t_points=t))
 
     plt.plot(*zip(*result))

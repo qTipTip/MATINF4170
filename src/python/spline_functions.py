@@ -29,7 +29,7 @@ def demo(n=10):
 
     x, y = spline_function(p, c, k)
     plt.scatter(*zip(*c), s=100)
-    plt.plot(*zip(*c), alpha=0.7, c='grey')
+    plt.plot(*zip(*c), alpha=0.7, c='grey', lw=1)
     plt.plot(*zip(*y))
     plt.show()
 
