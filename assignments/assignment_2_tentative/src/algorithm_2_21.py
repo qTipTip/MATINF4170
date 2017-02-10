@@ -4,6 +4,7 @@ import matplotlib.style
 matplotlib.style.use("fivethirtyeight")
 
 from index_finder import IndexBinary as index
+from bsplines import BasisSpline
 
 def BSplineEvaluation(x, p, knots):
     """
@@ -33,13 +34,28 @@ def demo():
     splines = []
     eps = 1.0e-14
     x_values = np.linspace(t[j], t[j+1]-eps, 1000)
+
     for x in x_values:
         splines.append(BSplineEvaluation(x, p, t))
+
     plt.plot(x_values, splines) 
-    plt.scatter(*zip(*[(k, 0) for k in t[j-1:j+3]]), s=100, zorder=100)
+    plt.scatter(*zip(*[(k, 0) for k in t[1:j+p+2]]), s=50, zorder=100, color='grey')
+
+    # Plots the dashed lines, signifying the non-active parts
+    B = BasisSpline(p)
+    for i in range(1, 4):
+        x_values = np.linspace(t[i], t[1 + p], 20)
+        y_values = [B(i, x, t) for x in x_values]
+        plt.plot(x_values, y_values, c='grey', linestyle='dashed', alpha=0.3)
+        x_values = np.linspace(t[j+1], t[j+p+1], 20)
+        y_values = [B(i+1, x, t) for x in x_values]
+        print(y_values)
+        plt.plot(x_values, y_values, c='grey', linestyle='dashed', alpha=0.3)
+
     plt.legend(labels=['$B_{1, 3}(x)$', '$B_{2, 3}(x)$', '$B_{3, 3}(x)$', '$B_{4, 3}(x)$'])
     plt.savefig('active_b_splines.pdf')
     plt.show()
+
 
 
 if __name__ == "__main__":

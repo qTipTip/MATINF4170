@@ -95,7 +95,7 @@
     \end{equation}
     Plugging in $x = t_j$ both terms evaluates to zero, and since $t_j$ is
     outside the interval $[t_{j+1}, t_{j+2})$, the right hand side of
-    \cref{eq:statement} also evaluates to zero. By symmetry, the same holds for
+    \ref{eq:statement} also evaluates to zero. By symmetry, the same holds for
     $x = t_{j+2}$. For $x = t_{j+1}$, we get $B(x \mid t_j, t_{j+1}) = 0$,
     while $B(x \mid t_{j+1}, t_{j+2}) = 1$. By definition, the right hand side
     of \cref{eq:statement} also evaluates to 1. This concludes the base case.
@@ -166,7 +166,7 @@
     determine exactly what knot interval the number $x$ lies in, e.g.,
     determine the index $\mu$ such that $t_\mu \leq x < t_{\mu+1}$. There are
     many ways of achieving this, and sometimes one can tailor the procedure to
-    current contex in order to achieve better performance. We examine a few
+    current context in order to achieve better performance. We examine a few
     methods, demonstrated in \textsc{Python}, and for all of these we assume $x
     \in [t_1, \ldots, t_{n+p+1})$. These have yet to be tested in a proper
     setting.
@@ -226,7 +226,7 @@ def IndexBinary(x, knots):
     the previous index as a starting point, to further narrow down our search
     range. This however, I can only see being more efficient if we evaluate
     points on the curve for a set of increasing parameter values, but that
-    are not neccessarily lying in adjacent knot intervals.
+    are not necessarily lying in adjacent knot intervals.
     \begin{minted}{python}
 def IndexBinaryEvaluation(x, knots, previous=0):
     a = previous
@@ -276,11 +276,12 @@ def BSplineEvaluation(x, p, knots):
     at $x$. Makes use of the \texttt{numpy}-vector operations.}
     \label{lst:bsplines}
     \end{listing}
-    
     \begin{figure}[htpb]
         \centering
         \includegraphics[width=0.8\linewidth]{active_b_splines.pdf}
-        \caption{The four active B-splines of order 3 on a uniform knot.}
+        \caption{The four active B-splines of order 3 on a uniform knot. The
+        active regions are colored, where as the full support of each spline is
+    shown in dashed grey lines.}
         \label{fig:active_b_splines.}
     \end{figure}
 \end{document}
