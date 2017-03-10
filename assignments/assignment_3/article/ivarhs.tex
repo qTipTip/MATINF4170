@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage[]{mathtools} 
+\usepackage[]{amssymb} 
+\usepackage[]{microtype} 
+
+\usepackage[]{palatino} 
+\usepackage[]{eulervm} 
+
+\usepackage[]{amsthm} 
+\usepackage[]{thmtools} 
+\usepackage[usenames, dvipsnames, svgnames, table]{xcolor} 
+
+\renewcommand{\S}{\mathbb{S}}
+
+\declaretheoremstyle[
+    headfont = \color{Maroon}\normalfont\bfseries,
+    mdframed = {
+        linecolor = Gray,
+        backgroundcolor = Gray!10
+    }
+]{theorem}
+\declaretheorem[
+style=theorem,
+name=Theorem,
+numbered=no,
+]{theorem}
+
+\author{Ivar Haugal{\o}kken Stangeby}
+
+\begin{document}
+    \maketitle 
+
+    \section*{Exercise 3.1}
+    
+    In this exercise we wish to show the linear independence of two cubic
+    B-splines on the knot vector $\hat{t} \coloneqq (0, 0, 1, 3, 4, 5)$ over
+    the interval $[1, 3)$. Using the knot dependecies, these two B-splines are
+    \begin{align*}
+        \hat{B}_{1, 3}(x \mid 0, 0, 1, 3, 4), && \hat{B}_{2, 3}(x \mid 0, 1, 3,
+        4, 5).
+    \end{align*}
+    In order to show the linear independence, we wish to apply Theorem 3.9,
+    restated here:
+
+    \begin{theorem}
+        Suppose that $t$ is a $p + 1$-extended knot vector. Then the B-splines
+        in $\S_{p, t}$ are linearly independent on the interval $[t_{p+1},
+        t_{n+1})$.
+    \end{theorem}
+    
+    Note that the vector $\hat{t}$ is \emph{not} $p+1$-extended, so we
+    introduce the new knot vector $t \coloneqq (0, 0, 0, 1, 3, 4, 5, 5)$.  We
+    now have enough knots to define four cubic B-splines, and these are
+    \begin{align*}
+        &B_{1, 3}(x \mid 0, 0, 0, 1, 3), & &B_{2, 3}(x \mid 0, 0, 1, 3, 4), \\
+        &B_{3, 3}(x \mid 0, 1, 3, 4, 5), & &B_{4, 3}(x \mid 1, 3, 4, 5, 5).
+    \end{align*}
+    By the above theorem, we now know that the B-splines $B_{i, 3, t}$ for $i =
+    1, \ldots, 4$ are linearly independent on the interval $[t_{4}, t_{5})$.
+    And by examining the knot dependencies, we see that $B_{2, 3} = \hat{B}_{1,
+    3}$ and $B_{3, 3} = \hat{B}_{2, 3}$. Hence, the two B-splines on the
+    coarses knot vector are linearly independent on the interval $[1, 3)$.
+\end{document}
