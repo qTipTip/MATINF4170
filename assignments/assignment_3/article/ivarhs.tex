@@ -54,7 +54,7 @@
 
 \begin{document}
     \maketitle 
-
+    
     \section*{Exercise 3.1}
     
     In this exercise we wish to show the linear independence of two cubic
@@ -89,7 +89,7 @@
     
     \section*{Exercise 4.5}
     
-    In this exercise, we wish to prove Lemma 4.2 in generality:
+    In this exercise we wish to prove Lemma 4.2 in generality:
     \begin{lemma}[4.2]
         Let $p$ be a positive integer and let $\tau$ be a knot vector with at
         least $p+2$ knots. If $t$ is a knot vector containing $\tau$ as a
@@ -121,11 +121,11 @@
     zero. Consequently, the first $p+1$ and last $p+1$ spline coefficients of
     $f$ with respect to the knot vector $t'$ are zero. This means, that only
     the B-splines originally defined on the refined knot vector $t$ contributes
-    to the spline $f$. Hence, $f \in \S_{p, t'}$.
+    to the spline $f$. Hence, $f \in \S_{p, t}$.
     
     \section*{Exercise 4.6}
     
-    In this exercise, we want to show that Theorem 4.6 holds in the general
+    In this exercise we want to show that Theorem 4.6 holds in the general
     case, where $\tau$ and $t$ not necessarily are $p+1$ regular. For this, we
     recall the following:
     \begin{recall}
@@ -136,13 +136,13 @@
                 \begin{align*}
                     \rho_{i, p, t}(y) = \aalpha_p(i)\rrho_{p, \tau}(y) && b_i = \aalpha_p(i)c_p.
                 \end{align*}
-            \item The dual polynomials in $\rrho_{p, \tau}(y)$ are linearily
+            \item The dual polynomials in $\rrho_{p, \tau}(y)$ are linearly
                 independent.
         \end{enumerate} 
     \end{recall}
     Let $\tau'$ and $t'$ be the augmented knot vectors as defined in Exercise
     4.5. For $p = 0$, if $\tau'_\mu \leq t'_i < \tau'_{\mu+1}$, then
-    $\alpha_{p}(i) = 1$. If $p > 0$, then we know that
+    $\aalpha_{p}(i) = 1$. If $p > 0$, then we know that
     \begin{equation}
         \notag
         \R_1(x_1)\cdots\R_p(x_p)\rrho_{p, \tau'}(y) = (y - x_1)\cdots(y-x_p)
@@ -170,7 +170,7 @@
     t}$. In our augmented knot vectors, as the first $p+1$ and last $p+1$ knots
     are equal, the first $p+1$ and last $p+1$ rows of the knot insertion matrix
     is zero. For each non-zero row, that is rows $i = p+2, \ldots, m+p+1$, only
-    columns $j = p+1, \ldots, n+p+1$ correspond to the old coarse B-splines.
+    columns $j = p+2, \ldots, n+p+1$ correspond to the old coarse B-splines.
     Hence, we can consider the submatrix obtained by dropping the $p+1$ first
     and last rows and columns.
 
@@ -232,7 +232,7 @@
     We first implement a routine for inserting midpoints in the non-trivial
     knot intervals in a given $p+1$-extended knot vector for a given spline
     degree $p$. A \textsc{Python} implementation is given in
-    \cref{lst:midpoints}. This method will be used for repeated refinenement of
+    \cref{lst:midpoints}. This method will be used for repeated refinement of
     a knot vector, to illustrate that the control polygon of a spline converges
     under repeated knot insertion.
     
@@ -240,9 +240,9 @@
     linear combination of finer B-splines is implemented in \textsc{Python} as
     shown in \cref{lst:oslo}.
 
-    The algorithm was used to examine the convergence of the control polygon to
-    the spline under repeated knot insertion. Here we simply insert midpoints
-    where possible. The results are given in
+    The algorithm was used to examine empirically the convergence of the
+    control polygon to the spline under repeated knot insertion. Here we simply
+    insert midpoints where possible. The results are given in
     \cref{fig:pictures/example_1,fig:pictures/example_2}.
     \begin{figure}[htpb]
         \centering
