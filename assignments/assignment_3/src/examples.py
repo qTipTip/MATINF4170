@@ -44,11 +44,12 @@ def example_1():
     x_values = np.linspace(t[0], t[-1] - 1.0e-14, 100)
     y_values = [evaluate(p, t, c, x) for x in x_values]
     control_poly = get_control_points(t, p, c)
-    
+
     f, axes = plt.subplots(4, 1, sharex='col', sharey='row')
 
     axes[0].plot(x_values, y_values, lw=1)
-    axes[0].plot(*zip(*control_poly), color='grey', label='subdivisions: 0', lw=1)
+    axes[0].plot(
+        *zip(*control_poly), color='grey', label='subdivisions: 0', lw=1)
     axes[0].scatter(*zip(*control_poly), color='grey', s=20)
 
     # knot insertions
@@ -60,9 +61,13 @@ def example_1():
 
         t = refined_t
         c = refined_c
-        axes[i+1].plot(x_values, y_values, lw=1)
-        axes[i+1].plot(*zip(*control_poly), color='grey', label='subdivisions: {n}'.format(n=i+1), lw=1)
-        axes[i+1].scatter(*zip(*control_poly), color='grey', s=20)
+        axes[i + 1].plot(x_values, y_values, lw=1)
+        axes[i + 1].plot(
+            *zip(*control_poly),
+            color='grey',
+            label='subdivisions: {n}'.format(n=i + 1),
+            lw=1)
+        axes[i + 1].scatter(*zip(*control_poly), color='grey', s=20)
 
     for ax in axes:
         ax.set_xticks([])
@@ -71,21 +76,23 @@ def example_1():
     plt.tight_layout()
     plt.savefig('example_1.pdf')
 
+
 def example_2():
 
     p = 2
-    t = np.array([0,0, 0,1, 2, 3, 3, 3])
+    t = np.array([0, 0, 0, 1, 2, 3, 3, 3])
     c = [-3, -6, 5, -0.5, 6]
 
     # exact
     x_values = np.linspace(t[0], t[-1] - 1.0e-14, 100)
     y_values = [evaluate(p, t, c, x) for x in x_values]
     control_poly = get_control_points(t, p, c)
-    
+
     f, axes = plt.subplots(4, 1, sharex='col', sharey='row')
 
     axes[0].plot(x_values, y_values, lw=1)
-    axes[0].plot(*zip(*control_poly), color='grey', label='subdivisions: 0', lw=1)
+    axes[0].plot(
+        *zip(*control_poly), color='grey', label='subdivisions: 0', lw=1)
     axes[0].scatter(*zip(*control_poly), color='grey', s=20)
 
     # knot insertions
@@ -97,9 +104,13 @@ def example_2():
 
         t = refined_t
         c = refined_c
-        axes[i+1].plot(x_values, y_values, lw=1)
-        axes[i+1].plot(*zip(*control_poly), color='grey', label='subdivisions: {n}'.format(n=i+1), lw=1)
-        axes[i+1].scatter(*zip(*control_poly), color='grey', s=20)
+        axes[i + 1].plot(x_values, y_values, lw=1)
+        axes[i + 1].plot(
+            *zip(*control_poly),
+            color='grey',
+            label='subdivisions: {n}'.format(n=i + 1),
+            lw=1)
+        axes[i + 1].scatter(*zip(*control_poly), color='grey', s=20)
 
     for ax in axes:
         ax.set_xticks([])
@@ -107,6 +118,7 @@ def example_2():
 
     plt.tight_layout()
     plt.savefig('example_2.pdf')
+
 
 if __name__ == "__main__":
     example_1()
