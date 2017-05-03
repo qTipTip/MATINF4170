@@ -37,6 +37,14 @@ def algorithm_1_2(p, c, x):
 
 
 def algorithm_4_9(p, tau, t):
+    """
+    Oslo Algorithm 1
+    :p: B-spline degree
+    :tau: p+1 regular knot vector, with common ends
+    :t: p+1 regular knot vector, with common ends
+    :returns: the knot insertion matrix A
+    """
+
     assert t[0:p + 1] == tau[0:p + 1]
     assert t[-(p + 1):-1] == tau[-(p + 1):-1]
 
@@ -61,6 +69,15 @@ def algorithm_4_9(p, tau, t):
 
 
 def algorithm_4_10(p, tau, t, c):
+    """
+    Oslo Algorithm 2
+    :p: Bspline degree
+    :tau: p+1 regular knot vector, with common ends
+    :t: p+1 regular knot vector, with common ends
+    :c: spline coefficients
+    :return: b, spline coefficients in finer space
+    """
+    
     assert t[0:p + 1] == tau[0:p + 1]
     assert t[-(p + 1):-1] == tau[-(p + 1):-1]
 

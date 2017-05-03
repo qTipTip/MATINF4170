@@ -3,7 +3,6 @@ import glob
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.style
-#  from mayavi import mlab
 from mpl_toolkits.mplot3d import Axes3D
 matplotlib.style.use('ggplot')
 
@@ -54,7 +53,3 @@ for k, lmbda in enumerate([5, 10, 20]):
     ax2.set_axis_off()
     ax2.plot_surface(f_vals[:, :, 0], f_vals[:, :, 1], f_vals[:, :, 2], cmap=cmaps[k])
     plt.savefig('surfaces_lambda_{l}.pdf'.format(l=lmbda), bbox_inches='tight', transparent=True)
-
-#  #  mlab.mesh(f_vals[:, :, 0], f_vals[:, :, 1], f_vals[:, :, 2])
-#  #  mlab.savefig('heart.obj')
-#  #  mlab.show()

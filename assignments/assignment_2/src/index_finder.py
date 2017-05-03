@@ -4,6 +4,7 @@ def IndexNaive(x, knots):
     for i in range(len(knots)-1):
         if knots[i] <= x < knots[i+1]:
             return i
+    return i
 
 def IndexEvaluation(x, knots, previous=0):
     for i in range(previous, len(knots-1)):
