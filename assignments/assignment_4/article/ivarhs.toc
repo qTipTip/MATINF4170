@@ -1,0 +1,13 @@
+\contentsline {chapter}{Contents}{1}{section*.1}
+\contentsline {chapter}{\chapternumberline {1}Least square spline approximation}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Parametric curves}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Parametric surfaces}{2}{section.1.2}
+\contentsline {chapter}{\chapternumberline {2}Modelling cross sections of a heart.}{2}{chapter.2}
+\contentsline {paragraph}{Parametrization:}{2}{section*.2}
+\contentsline {paragraph}{Determining the spline space \( \mathcal {S}_j \):}{3}{section*.3}
+\contentsline {paragraph}{Solving the least square problem:}{3}{section*.4}
+\contentsline {chapter}{\chapternumberline {3}Tensor product spline representation of heart}{3}{chapter.3}
+\contentsline {paragraph}{Sampling the spline curves:}{4}{section*.6}
+\contentsline {paragraph}{Parametrization:}{4}{section*.7}
+\contentsline {paragraph}{Determining the spline space \(\mathcal {S}_u \otimes \mathcal {S}_v\):}{4}{section*.8}
+\contentsline {appendix}{\chapternumberline {A}Implementation}{6}{appendix.A}
